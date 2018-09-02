@@ -6,6 +6,27 @@ Explain useful snipets for tunning.
 https://github.com/reikubonaga/isucon7-qualifier/blob/master/nginx.conf
 
 
+### Basic
+
+syntax Check
+
+```
+sudo nginx -t
+```
+
+nginx restart
+
+```
+sudo service nginx restart
+```
+
+Log rotation manually
+
+```
+sudo mv "/var/log/nginx/access.log" "/var/log/nginx/`date +"%Y%m%d%H%M%S"`_access.log"
+```
+
+
 ### Load Balancer
 Split load to one for dedicated for serving static content, one for dedicated for application and database, the other for dedicated for app and cache server.
 
