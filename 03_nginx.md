@@ -17,8 +17,15 @@ sudo nginx -t
 nginx restart
 
 ```
-sudo service nginx restart
+sudo systemctl restart nginx.service
 ```
+
+Enable nginx
+
+```
+sudo systemctl enable nginx.service
+```
+
 
 Log rotation manually
 
