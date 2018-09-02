@@ -1,5 +1,23 @@
 # Application
 
+## Centos
+
+```
+yum -y install epel-release
+yum install -y ack
+yum install -y graphviz
+```
+
+install latest redis
+```
+```
+
+go get
+```
+go get -u github.com/google/pprof
+
+```
+
 ## Objective
 Understand application structure and problems. Check followings.
 
