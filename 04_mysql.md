@@ -1,6 +1,6 @@
 # Common
 
-Login
+MySQLへのログイン方法 Login
 
 ```
 mysql -u isucon -p
@@ -10,7 +10,7 @@ Enter password: isucon
 Restart MySQL
 
 ```
-sudo /etc/init.d/mysql restart
+sudo systemctl restart mysql
 ```
 
 設定ファイル優先度確認
@@ -19,13 +19,13 @@ sudo /etc/init.d/mysql restart
 mysql --help | grep my.cnf
 ```
 
-Backup and dump for MySQL
+Ho to do SCP from VPS to local
 
 ```
 scp ubuntu@ec2-54-95-78-211.ap-northeast-1.compute.amazonaws.com:~/for-dump/mysqld.cnf ~
 ```
 
-Status Confirmation
+MySQLの状況・状態 確認 Stat Confirmantion
 
 ```
 > show variables like 'version';
@@ -33,9 +33,6 @@ Status Confirmation
 > show databases;
 > use isubata;
 > show tables;
-
-> SHOW variables LIKE "%max_connections%";
-> SHOW variables LIKE "%open_files_limit%";
 ```
 
 起動ログの確認
@@ -46,11 +43,39 @@ sudo journalctl -u mysql
 
 # 以降 実際にやること
 
+# systemctlが使えるように設定する
+
+(Ubuntuの場合)
+
+```
+$ cp /lib/systemd/system/mysql.service /etc/systemd/system/
+$ echo 'LimitNOFILE=infinity' >> /etc/systemd/system/mysql.service
+$ echo 'LimitMEMLOCK=infinity' >> /etc/systemd/system/mysql.service
+```
+
+systemctlをリロードする
+
+```
+$ sudo systemctl daemon-reload
+```
+
+MySQLを再起動する
+
+```
+$ sudo systemctl restart mysql
+```
+
+自動起動の有効化
+
+```
+$ sudo systemctl enable mysql
+```
+
 # ダンプ => ローカル転送(バックアップ) => (ローカルにDBリストア)
 
+[注意] 下記を置き換える
 isubata <= DB名
 isucon <= User名
-
 
 ダンプする
 
@@ -95,24 +120,30 @@ echo 'session    required     pam_limits.so' >> /etc/pam.d/common-nonsession
 
 MySQL側の設定
 
+```bash
+echo 'max_connections=10000' >> /etc/mysql/my.cnf
 ```
-# MySQLへログイン
-> set global max_connections=10000;
-> show global variables like '%connection%';
-```
-
-# スローログ
 
 設定の確認
 
 ```
-> show variables like 'slow%';
+> SHOW variables LIKE "%max_connections%";
+> SHOW variables LIKE "%open_files_limit%";
 ```
+
+# スローログ
 
 設定する
 
+```bash
+echo 'slow_query_log=ON' >> /etc/mysql/my.cnf
+echo 'long_query_time = 0' >> /etc/mysql/my.cnf
+echo 'slow_query_log_file = /tmp/mysql-slow.sql' >> /etc/mysql/my.cnf
 ```
-> set global slow_query_log = 1;
-> set global long_query_time = 0;
-> set global slow_query_log_file = "/tmp/slow.log";
+
+設定の確認
+
+```
+# MySQLへログイン
+> show variables like 'slow%';
 ```
