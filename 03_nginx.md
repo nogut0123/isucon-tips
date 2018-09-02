@@ -113,8 +113,8 @@ tcp_nodelay on;
 types_hash_max_size 2048;
 # server_tokens off;
 
-      # keepalive setting
-      keepalive_timeout 65;
-      keepalive_requests 500;
+# keepalive setting
+keepalive_timeout 65;
+keepalive_requests 500;
 
 ```
