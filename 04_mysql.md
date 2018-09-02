@@ -147,3 +147,16 @@ echo 'slow_query_log_file = /tmp/mysql-slow.sql' >> /etc/mysql/my.cnf
 # MySQLへログイン
 > show variables like 'slow%';
 ```
+
+## innodb buffer
+
+参考
+https://gist.github.com/south37/d4a5a8158f49e067237c17d13ecab12a#innodb-buffer
+
+設定する
+
+```bash
+echo 'innodb_buffer_pool_size = 1GB' >> /etc/mysql/my.cnf
+echo 'innodb_flush_log_at_trx_commit = 2' >> /etc/mysql/my.cnf
+echo 'innodb_flush_method = O_DIRECT' >> /etc/mysql/my.cnf
+```
