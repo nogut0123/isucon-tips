@@ -93,6 +93,11 @@ rows, err := db.Query(fmt.Sprintf(
 
 TODO: isucon6通過者の実装例
 
+#### N+1
+[htmlify](https://github.com/isucon/isucon6-qualify/blob/ba21fa19573deba630f34ebe470141dff6a67273/webapp/go/isuda.go#L307-L342)
+
+
+
 ### スパムチェッカーisupam
 
 > スパムチェッカーのisupamに関しては、これは狙いとしては完全に目眩ましであり、ボトルネックにはならないところなので手をいれるところではなく、気にしたら負け、くらいの感覚でした。
