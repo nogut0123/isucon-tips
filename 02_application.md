@@ -2,17 +2,19 @@
 
 ## Centos
 
+### install
+
 ```
 yum -y install epel-release
 yum install -y ack
 yum install -y graphviz
 ```
 
-install latest redis
-```
-```
+#### Redis
+[Redis](https://github.com/giwa/isucon-tips/blob/master/04_redis.md)
 
-go get
+#### go package
+
 ```
 go get -u github.com/google/pprof
 
@@ -132,15 +134,8 @@ app.go
 ```
 
 
-### TODO add example
 
-### install ack
-
-```
-sudo apt install ack-grep
-```
-
-(macOS)
+## Solution sample
 
 
 ### Stop db access
@@ -164,7 +159,7 @@ go version go1.9.2 darwin/amd64
 # pprofをインストール（すでに入っていればアップデート）
 $ go get -u github.com/google/pprof
 # graphvizが必要なのでインストール
-$ brew install graphviz
+$ yum install -y graphviz
 ```
 
 ```
@@ -241,21 +236,6 @@ Showing nodes accounting for 20ms, 100% of 20ms total
 
 https://serinuntius.hatenablog.jp/entry/2018/05/01/083000
 
-
-## Redis
-https://github.com/ryotarai/isucon7q/commit/3e7e523e5d693c3ee5aa7013c83ff92750981a25#diff-65a7f662a18446a4877f858721cc010e
-
-```
-"github.com/go-redis/redis"
-```
-
-```
-var (
-	db            *sqlx.DB		db            *sqlx.DB
-	ErrBadReqeust = echo.NewHTTPError(http.StatusBadRequest)		ErrBadReqeust = echo.NewHTTPError(http.StatusBadRequest)
-	redisClient   *redis.Client
-)
-```
 
 ## N+1
 message
